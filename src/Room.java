@@ -2,7 +2,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
-public class Rooms {
+public class Room {
 
     Image backgroundImage;
     //Image pic = new Image("IMG_0110.png");
@@ -11,9 +11,8 @@ public class Rooms {
     Scene right;
 
     //String vasak, otse, parem;
-    //String[] ruumid;
 
-    public Rooms (Image sceneBackgroundImage, Scene nextLeft, Scene nextStraight, Scene nextRight) {
+    public Room (Image sceneBackgroundImage, Scene nextLeft, Scene nextStraight, Scene nextRight) {
         backgroundImage = sceneBackgroundImage;
         left = nextLeft;
         straight = nextStraight;
@@ -32,5 +31,6 @@ public class Rooms {
     public void setNextRight (Scene nextRight) {
         left = nextRight;
     }
+
 
 }

@@ -68,26 +68,10 @@ public class Main extends Application {
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         instructionPane.setBackground(new Background(proovbg));
 
+
         instructionPane.getChildren().addAll(instructions, a1);
         mainStage.setScene(instructionScene);
 
     }
 
-    public void scene() {
-
-        //Buttons for Scenes
-        Button goLeft = new Button("Go left!");
-        Button goRight = new Button("Go right!");
-        Button goStraight = new Button("Go straight!");
-
-        //Scenes
-        //howww? kuhu kirjutada k6igi scene'ide vahelised seosed? siia v6i teise klassi?
-
-//        Scene backgB1 = new Scene();
-//        Scene backgB2 = new Scene();
-//        Scene backgB3 = new Scene();
-//        Scene backgA = new Scene("IMG_0110.png", backgB1, backgB2, backgB3);
-
-
-    }
 }
