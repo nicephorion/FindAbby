@@ -1,36 +1,56 @@
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 
 public class Room {
 
     Image backgroundImage;
-    //Image pic = new Image("IMG_0110.png");
-    Scene left;
-    Scene straight;
-    Scene right;
+    Room left;
+    Room straight;
+    Room right;
+    boolean victory;
 
-    //String vasak, otse, parem;
-
-    public Room (Image sceneBackgroundImage, Scene nextLeft, Scene nextStraight, Scene nextRight) {
-        backgroundImage = sceneBackgroundImage;
-        left = nextLeft;
-        straight = nextStraight;
-        right = nextRight;
-    }
-
-    public void setBackgroundImage (Image sceneBackgroundImage) {
+    //constructor
+    public Room (Image sceneBackgroundImage) {
         backgroundImage = sceneBackgroundImage;
     }
-    public void setNextLeft (Scene nextLeft) {
-        left = nextLeft;
-    }
-    public void setNextStraight (Scene nextStraight) {
-        left = nextStraight;
-    }
-    public void setNextRight (Scene nextRight) {
-        left = nextRight;
+
+    // backgroundimage
+    public Image getBackgroundImage() {
+        return backgroundImage;
     }
 
+    // left pathway
+    public Room getLeft() {
+        return left;
+    }
 
+    public void setLeft(Room left) {
+        this.left = left;
+    }
+
+    // straight pathway
+    public Room getStraight() {
+        return straight;
+    }
+
+    public void setStraight(Room straight) {
+        this.straight = straight;
+    }
+
+    // right pathway
+    public Room getRight() {
+        return right;
+    }
+
+    public void setRight(Room right) {
+        this.right = right;
+    }
+
+    // victory
+    public boolean isVictory() {
+        return victory;
+    }
+
+    public void setVictory(boolean victory) {
+        this.victory = victory;
+    }
 }
