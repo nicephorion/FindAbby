@@ -4,10 +4,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
@@ -57,25 +60,25 @@ public class Main extends Application {
         structure.put(27, new int[] {-1, -1});
         structure.put(28, new int[] {-1, -1});
 
-        //String[] pildid = new String[]{"0.png", "2.jpg", "3.jpg"};
-        Image[] pildid = new Image[28];
-        pildid[0] = Image("0.png");
-        pildid[1] = Image("1.jpg");
-        pildid[2] = Image("2.jpg");
+        // Variant 1
+        String[] pildid = new String[]{"0.png", "2.jpg", "3.jpg"};
+//        Image[] pildid = new Image[28];
+//        pildid[0] = Image("0.png");
+//        pildid[1] = Image("1.jpg");
+//        pildid[2] = Image("2.jpg");
 
-
-        Room[] rooms = new Room[pildid.length];
-
+                Room[] rooms = new Room[pildid.length];
 
         for (int i = 0; i < pildid.length; i++) {
-            Image sceneBackgroundimage = pildid[i];
+            String stringSceneBackgroundimage = pildid[i];
+            Image sceneBackgroundimage = new Image (stringSceneBackgroundimage);
             Room room = new Room(sceneBackgroundimage);
             rooms[i] = room;
         }
 
         for (Map.Entry<Integer, int[]> paar : structure.entrySet()) {
-            Integer roomNr = entry.getKey();
-            int[] suunad = entry.getValue();
+            Integer roomNr = paar.getKey();
+            int[] suunad = paar.getValue();
 
             int vasak = suunad[0];
             int parem = suunad[1];
@@ -105,6 +108,50 @@ public class Main extends Application {
             }
         }
         return rooms[0];
+
+        // Variant 2
+
+//        List<Image> pildid = new ArrayList<>();
+//        ArrayList<Integer> rooms = new ArrayList<>();
+//        for (int i = 0; i < 28; i++) {
+//            pildid.add(new Image(getClass().getResource(i + "jpg").toExternalForm()));
+//            Image sceneBackgroundImage = pildid.get(i);
+//            Room room = new Room(sceneBackgroundImage);
+//            rooms.get(i) = room;
+//        }
+//
+//        for (Map.Entry<Integer, int[]> paar : structure.entrySet()) {
+//            Integer roomNr = paar.getKey();
+//            int[] suunad = paar.getValue();
+//
+//            int vasak = suunad[0];
+//            int parem = suunad[1];
+//            int otse = suunad[2];
+//
+//            Room vaadeldavRoom = rooms.get(roomNr);
+//            // left pathway
+//            if (vasak == -1) {
+//                vaadeldavRoom.setLeft(null);
+//            }
+//            else {
+//                vaadeldavRoom.setLeft(rooms.get(vasak));
+//            }
+//            // straight pathway
+//            if (otse == -1) {
+//                vaadeldavRoom.setStraight(null);
+//            }
+//            else {
+//                vaadeldavRoom.setStraight(rooms.get(otse));
+//            }
+//            // right pathway
+//            if (parem == -1) {
+//                vaadeldavRoom.setRight(null);
+//            }
+//            else {
+//                vaadeldavRoom.setRight(rooms.get(parem));
+//            }
+//        }
+//        return rooms.get(0);
     }
 
     public void startsceen() {
@@ -128,7 +175,7 @@ public class Main extends Application {
 
         //startButton event
         startButton.setOnAction((eventInstructions) -> {
-                    instructionscreen(nameText);
+            instructionscreen(nameText);
         });
 
         mainStage.setScene(startScene);
@@ -156,7 +203,13 @@ public class Main extends Application {
         instructionPane.setBackground(new Background(proovbg));
 
         // Kutsu välja setup meetod: Room first = setup();
+        Room first = setup();
+
         // Nupule vajutades alustatakse playGame(first)
+        //startButton event
+        a1.setOnAction((eventStartGame) -> {
+            playGame(first);
+        });
 
         instructionPane.getChildren().addAll(instructions, a1);
         mainStage.setScene(instructionScene);
@@ -203,16 +256,12 @@ public class Main extends Application {
             lastScene(currentRoom);
         }
 
-        Image image = currentRoom.getBackgroundImage();
+        Image bgimage = currentRoom.getBackgroundImage();
 
-        //How to set background images
-        BackgroundImage bgimage = new BackgroundImage(new Image("IMG_0110.png", 700, 600, false, true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        playGamePane.setBackground(new Background(bgimage));
+        ImageView imageView = new ImageView(bgimage);
 
         // adding buttons
-        playGamePane.getChildren().addAll(leftButton, straightButton, rightButton);
+        playGamePane.getChildren().addAll(imageView, leftButton, straightButton, rightButton);
         mainStage.setScene(playGameScene);
 
         if (vasak == null) {
