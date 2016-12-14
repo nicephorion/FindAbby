@@ -56,18 +56,18 @@ public class Main extends Application {
         structure.put(23, new int[] {-1, -1, 28});
         structure.put(24, new int[] {-1, 28, -1});
         structure.put(25, new int[] {28, -1, -1});
-        structure.put(26, new int[] {-1, -1});
-        structure.put(27, new int[] {-1, -1});
-        structure.put(28, new int[] {-1, -1});
+        //kuidas eristada võitu surmast viimastel piltidel?
+        structure.put(26, new int[] {-1, -1, -1});
+        structure.put(27, new int[] {-1, -1, -1});
+        structure.put(28, new int[] {-1, -1, -1});
 
         // Variant 1
-        String[] pildid = new String[]{"0.png", "2.jpg", "3.jpg"};
-//        Image[] pildid = new Image[28];
-//        pildid[0] = Image("0.png");
-//        pildid[1] = Image("1.jpg");
-//        pildid[2] = Image("2.jpg");
+        String[] pildid = new String[]{"0.png", "2.JPG", "3.JPG", "4.JPG", "5.JPG",  "6.JPG",
+                "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG", "14.JPG",
+                "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
+                "24.JPG", "25.JPG", "26.JPG", "27.JPG", "28.JPG"};
 
-                Room[] rooms = new Room[pildid.length];
+        Room[] rooms = new Room[pildid.length];
 
         for (int i = 0; i < pildid.length; i++) {
             String stringSceneBackgroundimage = pildid[i];
@@ -76,6 +76,7 @@ public class Main extends Application {
             rooms[i] = room;
         }
 
+        //For tsükli loomisel küsisin targemalt abi.
         for (Map.Entry<Integer, int[]> paar : structure.entrySet()) {
             Integer roomNr = paar.getKey();
             int[] suunad = paar.getValue();
@@ -109,49 +110,6 @@ public class Main extends Application {
         }
         return rooms[0];
 
-        // Variant 2
-
-//        List<Image> pildid = new ArrayList<>();
-//        ArrayList<Integer> rooms = new ArrayList<>();
-//        for (int i = 0; i < 28; i++) {
-//            pildid.add(new Image(getClass().getResource(i + "jpg").toExternalForm()));
-//            Image sceneBackgroundImage = pildid.get(i);
-//            Room room = new Room(sceneBackgroundImage);
-//            rooms.get(i) = room;
-//        }
-//
-//        for (Map.Entry<Integer, int[]> paar : structure.entrySet()) {
-//            Integer roomNr = paar.getKey();
-//            int[] suunad = paar.getValue();
-//
-//            int vasak = suunad[0];
-//            int parem = suunad[1];
-//            int otse = suunad[2];
-//
-//            Room vaadeldavRoom = rooms.get(roomNr);
-//            // left pathway
-//            if (vasak == -1) {
-//                vaadeldavRoom.setLeft(null);
-//            }
-//            else {
-//                vaadeldavRoom.setLeft(rooms.get(vasak));
-//            }
-//            // straight pathway
-//            if (otse == -1) {
-//                vaadeldavRoom.setStraight(null);
-//            }
-//            else {
-//                vaadeldavRoom.setStraight(rooms.get(otse));
-//            }
-//            // right pathway
-//            if (parem == -1) {
-//                vaadeldavRoom.setRight(null);
-//            }
-//            else {
-//                vaadeldavRoom.setRight(rooms.get(parem));
-//            }
-//        }
-//        return rooms.get(0);
     }
 
     public void startsceen() {
@@ -196,8 +154,8 @@ public class Main extends Application {
         a1.setTranslateX(20);
         a1.setTranslateY(100);
 
-        //How to set background images
-        BackgroundImage proovbg = new BackgroundImage(new Image("IMG_0110.png", 700, 600, false, true),
+        //How to set background images - oopiski imageview???
+        BackgroundImage proovbg = new BackgroundImage(new Image("0.png", 700, 600, false, true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         instructionPane.setBackground(new Background(proovbg));
