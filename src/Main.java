@@ -33,39 +33,41 @@ public class Main extends Application {
         structure.put(0, new int[] {1, 2, 3});
         structure.put(1, new int[] {4, 5, 6});
         structure.put(2, new int[] {6, 7, 8});
-        structure.put(3, new int[] {8, -1, 9});
+        structure.put(3, new int[] {8, 30, 9});
         structure.put(4, new int[] {10, 11, -1});
-        structure.put(5, new int[] {-1, 12, 13});
-        structure.put(6, new int[] {13, -1, 14});
-        structure.put(7, new int[] {-1, 14, 15});
-        structure.put(8, new int[] {15, -1, 16});
-        structure.put(9, new int[] {16, 17, -1});
-        structure.put(10, new int[] {18, -1, 19});
-        structure.put(11, new int[] {-1, 19, 20});
-        structure.put(12, new int[] {20, -1, 21});
-        structure.put(13, new int[] {-1, 21, 22});
+        structure.put(5, new int[] {30, 12, 13});
+        structure.put(6, new int[] {13, 30, 14});
+        structure.put(7, new int[] {30, 14, 15});
+        structure.put(8, new int[] {15, 30, 16});
+        structure.put(9, new int[] {16, 17, 30});
+        structure.put(10, new int[] {18, 30, 19});
+        structure.put(11, new int[] {30, 19, 20});
+        structure.put(12, new int[] {20, 30, 21});
+        structure.put(13, new int[] {30, 21, 22});
         structure.put(14, new int[] {22, 23, -1});
-        structure.put(15, new int[] {23, -1, 24});
-        structure.put(16, new int[] {24, -1, 25});
-        structure.put(17, new int[] {-1, 25, -1});
-        structure.put(18, new int[] {-1, -1, 26});
-        structure.put(19, new int[] {-1, 26, -1});
-        structure.put(20, new int[] {26, -1, -1});
-        structure.put(21, new int[] {-1, -1, 27});
-        structure.put(22, new int[] {27, -1, -1});
-        structure.put(23, new int[] {-1, -1, 28});
-        structure.put(24, new int[] {-1, 28, -1});
-        structure.put(25, new int[] {28, -1, -1});
-        //kuidas eristada võitu surmast viimastel piltidel?
-        structure.put(26, new int[] {-1, -1, -1});
-        structure.put(27, new int[] {-1, -1, -1});
-        structure.put(28, new int[] {-1, -1, -1});
+        structure.put(15, new int[] {23, 30, 24});
+        structure.put(16, new int[] {24, 30, 25});
+        structure.put(17, new int[] {30, 25, 30});
+        structure.put(18, new int[] {30, 30, 26});
+        structure.put(19, new int[] {30, 26, 30});
+        structure.put(20, new int[] {26, 30, 30});
+        structure.put(21, new int[] {30, 30, 27});
+        structure.put(22, new int[] {27, 30, 30});
+        structure.put(23, new int[] {30, 30, 28});
+        structure.put(24, new int[] {30, 28, 30});
+        structure.put(25, new int[] {28, 30, 30});
+        structure.put(26, new int[] {30, 30, 29});
+        structure.put(27, new int[] {30, 29, 30});
+        structure.put(28, new int[] {30, 29, 30});
+        // 29- win, 30 - lose
+        structure.put(29, new int[] {-1, -1, -1});
+        structure.put(30, new int[] {-1, -1, -1});
 
         // Variant 1
         String[] pildid = new String[]{"0.png", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",  "6.JPG",
                 "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG", "14.JPG",
                 "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
-                "24.JPG", "25.JPG", "26.JPG", "27.JPG", "28.JPG"};
+                "24.JPG", "25.JPG", "26.JPG", "27.JPG", "28.JPG", "29.png", "30.JPG"};
 
         Room[] rooms = new Room[pildid.length];
 
@@ -108,6 +110,9 @@ public class Main extends Application {
                 vaadeldavRoom.setRight(rooms[parem]);
             }
         }
+
+        rooms[29].setWin(true);
+        rooms[30].setLose(true);
         return rooms[0];
 
     }
@@ -177,6 +182,10 @@ public class Main extends Application {
 
     public void playGame(Room currentRoom) {
 
+        if (currentRoom.isWin() || currentRoom.isLose()) {
+            lastScene(currentRoom);
+        }
+
         Pane playGamePane = new Pane();
         Scene playGameScene = new Scene(playGamePane, 700, 600);
 
@@ -187,16 +196,17 @@ public class Main extends Application {
         // left button
         Button leftButton = new Button("Go left!");
         leftButton.setTranslateX(20);
-        leftButton.setTranslateY(100);
+        leftButton.setTranslateY(500);
         // event
         leftButton.setOnAction((eventInstructions) -> {
+            //if vasak == -1 { lastScene }
             playGame(vasak);
         });
 
         // straight button
         Button straightButton = new Button("Go straight!");
-        straightButton.setTranslateX(20);
-        straightButton.setTranslateY(100);
+        straightButton.setTranslateX(300);
+        straightButton.setTranslateY(500);
         // event
         straightButton.setOnAction((eventInstructions) -> {
             playGame(otse);
@@ -204,8 +214,8 @@ public class Main extends Application {
 
         // right button
         Button rightButton = new Button("Go right!");
-        rightButton.setTranslateX(20);
-        rightButton.setTranslateY(100);
+        rightButton.setTranslateX(600);
+        rightButton.setTranslateY(500);
         // event
         rightButton.setOnAction((eventInstructions) -> {
             playGame(parem);
@@ -224,17 +234,51 @@ public class Main extends Application {
         mainStage.setScene(playGameScene);
 
         if (vasak == null) {
-            leftButton.setDisable(true);
+            leftButton.setVisible(false);
         }
         if (otse == null) {
-            straightButton.setDisable(true);
+            straightButton.setVisible(false);
         }
         if (parem == null) {
-            rightButton.setDisable(true);
+            rightButton.setVisible(false);
         }
 
     }
     public void lastScene(Room currentRoom) {
+        Pane lastScenePane = new Pane();
+        Scene lastSceneScene = new Scene(lastScenePane, 700, 600);
+
+        Button playAgainButton = new Button ("Play again!");
+        playAgainButton.setTranslateX(20);
+        playAgainButton.setTranslateX(500);
+        playAgainButton.setOnAction((eventPlayAgain) -> {
+            startsceen();
+        });
+
+        Button exitButton = new Button ("Exit game!");
+        exitButton.setTranslateX(600);
+        exitButton.setTranslateX(500);
+        playAgainButton.setOnAction((eventexit) -> {
+            System.exit(0);
+        });
+
+        if (currentRoom.isWin()) {
+            Label winLabel = new Label ("You found your sister! Good job!");
+            winLabel.setScaleX(2);
+            winLabel.setScaleX(2);
+            winLabel.setTranslateX(30);
+            winLabel.setTranslateX(50);
+
+            lastScenePane.getChildren().addAll (playAgainButton, exitButton, winLabel);
+        } else {
+            Label loseLabel = new Label ("Oh, no! You deadd!!");
+            loseLabel.setScaleX(2);
+            loseLabel.setScaleX(2);
+            loseLabel.setTranslateX(30);
+            loseLabel.setTranslateX(50);
+
+            lastScenePane.getChildren().addAll (playAgainButton, exitButton, loseLabel);
+        }
 
     }
 

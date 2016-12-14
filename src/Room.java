@@ -6,7 +6,8 @@ public class Room {
     Room left;
     Room straight;
     Room right;
-    boolean victory;
+    boolean win;
+    boolean lose;
 
     //constructor
     public Room (Image sceneBackgroundImage) {
@@ -45,12 +46,19 @@ public class Room {
         this.right = right;
     }
 
-    // victory
-    public boolean isVictory() {
-        return victory;
+    public boolean isWin() {
+        return win;
     }
 
-    public void setVictory(boolean victory) {
-        this.victory = victory;
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+
+    public boolean isLose() {
+        return lose;
+    }
+
+    public void setLose(boolean lose) {
+        this.lose = lose;
     }
 }
