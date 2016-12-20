@@ -64,10 +64,10 @@ public class Main extends Application {
         structure.put(30, new int[] {-1, -1, -1});
 
         // Variant 1
-        String[] pildid = new String[]{"0.png", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",  "6.JPG",
-                "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG", "14.JPG",
-                "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
-                "24.JPG", "25.JPG", "26.JPG", "27.JPG", "28.JPG", "29.png", "30.JPG"};
+        String[] pildid = new String[]{"0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg",  "6.jpg",
+                "7.jpg", "8.jpg", "9.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg",
+                "15.jpg", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
+                "24.JPG", "25.JPG", "26.jpg", "27.JPG", "28.JPG", "29.jpg", "30.jpg"};
 
         Room[] rooms = new Room[pildid.length];
 
@@ -127,8 +127,11 @@ public class Main extends Application {
         TextField nameText = new TextField();
         Button startButton = new Button("Enter!");
 
+        Image bgimage = new Image("40.JPG");
+        ImageView imageView = new ImageView(bgimage);
+
         //Adding stuff to startPane
-        startPane.getChildren().addAll(startLabel, nameText, startButton);
+        startPane.getChildren().addAll(imageView, startLabel, nameText, startButton);
         startLabel.setTranslateX(20);
         startLabel.setTranslateY(20);
         nameText.setTranslateX(20);
@@ -160,11 +163,8 @@ public class Main extends Application {
         a1.setTranslateX(20);
         a1.setTranslateY(100);
 
-        //How to set background images - oopiski imageview???
-        BackgroundImage proovbg = new BackgroundImage(new Image("0.png", 700, 600, false, true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        instructionPane.setBackground(new Background(proovbg));
+        Image bgimage = new Image("40.JPG");
+        ImageView imageView = new ImageView(bgimage);
 
         // Kutsu välja setup meetod: Room first = setup();
         Room first = setup();
@@ -175,7 +175,7 @@ public class Main extends Application {
             playGame(first);
         });
 
-        instructionPane.getChildren().addAll(instructions, a1);
+        instructionPane.getChildren().addAll(imageView, instructions, a1);
         mainStage.setScene(instructionScene);
 
     }
@@ -245,6 +245,7 @@ public class Main extends Application {
 
     }
     public void lastScene(Room currentRoom) {
+
         Pane lastScenePane = new Pane();
         Scene lastSceneScene = new Scene(lastScenePane, 700, 600);
 
@@ -278,6 +279,8 @@ public class Main extends Application {
             loseLabel.setTranslateX(50);
 
             lastScenePane.getChildren().addAll (playAgainButton, exitButton, loseLabel);
+
+            mainStage.setScene(lastSceneScene);
         }
 
     }
