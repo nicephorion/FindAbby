@@ -44,7 +44,7 @@ public class Main extends Application {
         structure.put(11, new int[] {30, 19, 20});
         structure.put(12, new int[] {20, 30, 21});
         structure.put(13, new int[] {30, 21, 22});
-        structure.put(14, new int[] {22, 23, -1});
+        structure.put(14, new int[] {22, 23, 30});
         structure.put(15, new int[] {23, 30, 24});
         structure.put(16, new int[] {24, 30, 25});
         structure.put(17, new int[] {30, 25, 30});
@@ -225,11 +225,12 @@ public class Main extends Application {
             lastScene(currentRoom);
         }
 
+        // background image
         Image bgimage = currentRoom.getBackgroundImage();
 
         ImageView imageView = new ImageView(bgimage);
 
-        // adding buttons
+        // adding buttons and background to the pane
         playGamePane.getChildren().addAll(imageView, leftButton, straightButton, rightButton);
         mainStage.setScene(playGameScene);
 
