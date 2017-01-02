@@ -34,7 +34,7 @@ public class Main extends Application {
         structure.put(1, new int[] {4, 5, 6});
         structure.put(2, new int[] {6, 7, 8});
         structure.put(3, new int[] {8, 30, 9});
-        structure.put(4, new int[] {10, 11, -1});
+        structure.put(4, new int[] {10, 11, 30});
         structure.put(5, new int[] {30, 12, 13});
         structure.put(6, new int[] {13, 30, 14});
         structure.put(7, new int[] {30, 14, 15});
@@ -64,10 +64,10 @@ public class Main extends Application {
         structure.put(30, new int[] {-1, -1, -1});
 
         // Variant 1
-        String[] pildid = new String[]{"0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg",  "6.jpg",
-                "7.jpg", "8.jpg", "9.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg",
-                "15.jpg", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
-                "24.JPG", "25.JPG", "26.jpg", "27.JPG", "28.JPG", "29.jpg", "30.jpg"};
+        String[] pildid = new String[]{"0.JPG", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",  "6.JPG",
+                "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG", "14.JPG",
+                "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
+                "24.JPG", "25.JPG", "26.JPG", "27.JPG", "28.JPG", "29.JPG", "30.JPG"};
 
         Room[] rooms = new Room[pildid.length];
 
@@ -84,8 +84,8 @@ public class Main extends Application {
             int[] suunad = paar.getValue();
 
             int vasak = suunad[0];
-            int parem = suunad[1];
-            int otse = suunad[2];
+            int otse = suunad[1];
+            int parem = suunad[2];
 
             Room vaadeldavRoom = rooms[roomNr];
             // left pathway
@@ -141,7 +141,6 @@ public class Main extends Application {
 
         //startButton event
         startButton.setOnAction((eventInstructions) -> {
-            System.out.println("Press enter");
             instructionscreen(nameText);
         });
 
@@ -184,6 +183,7 @@ public class Main extends Application {
 
         if (currentRoom.isWin() || currentRoom.isLose()) {
             lastScene(currentRoom);
+            return;
         }
 
         Pane playGamePane = new Pane();
@@ -250,16 +250,19 @@ public class Main extends Application {
         Pane lastScenePane = new Pane();
         Scene lastSceneScene = new Scene(lastScenePane, 700, 600);
 
+        Image bgimage = new Image("40.JPG");
+        ImageView imageView = new ImageView(bgimage);
+
         Button playAgainButton = new Button ("Play again!");
         playAgainButton.setTranslateX(20);
-        playAgainButton.setTranslateX(500);
+        playAgainButton.setTranslateY(500);
         playAgainButton.setOnAction((eventPlayAgain) -> {
             startsceen();
         });
 
         Button exitButton = new Button ("Exit game!");
         exitButton.setTranslateX(600);
-        exitButton.setTranslateX(500);
+        exitButton.setTranslateY(500);
         playAgainButton.setOnAction((eventexit) -> {
             System.exit(0);
         });
@@ -271,7 +274,7 @@ public class Main extends Application {
             winLabel.setTranslateX(30);
             winLabel.setTranslateX(50);
 
-            lastScenePane.getChildren().addAll (playAgainButton, exitButton, winLabel);
+            lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, winLabel);
         } else {
             Label loseLabel = new Label ("Oh, no! You deadd!!");
             loseLabel.setScaleX(2);
@@ -279,7 +282,7 @@ public class Main extends Application {
             loseLabel.setTranslateX(30);
             loseLabel.setTranslateX(50);
 
-            lastScenePane.getChildren().addAll (playAgainButton, exitButton, loseLabel);
+            lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, loseLabel);
 
             mainStage.setScene(lastSceneScene);
         }
