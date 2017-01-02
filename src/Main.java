@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -166,9 +168,8 @@ public class Main extends Application {
 
         //Adding stuff to startPane
         startPane.getChildren().addAll(imageView, startLabel, nameText, startButton);
-        startLabel.setScaleX(3);
-        startLabel.setScaleX(3);
-        startLabel.setTranslateX(80);
+        startLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        startLabel.setTranslateX(20);
         startLabel.setTranslateY(20);
 
         nameText.setTranslateX(20);
