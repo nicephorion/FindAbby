@@ -2,12 +2,13 @@ import javafx.scene.image.Image;
 
 public class Room {
 
-    Image backgroundImage;
-    Room left;
-    Room straight;
-    Room right;
-    boolean win;
-    boolean lose;
+    private Image backgroundImage;
+    private String storyText;
+    private Room left;
+    private Room straight;
+    private Room right;
+    private boolean win;
+    private boolean lose;
 
     //constructor
     public Room (Image sceneBackgroundImage) {
@@ -33,9 +34,7 @@ public class Room {
         return straight;
     }
 
-    public void setStraight(Room straight) {
-        this.straight = straight;
-    }
+    public void setStraight(Room straight) { this.straight = straight; }
 
     // right pathway
     public Room getRight() {
@@ -46,6 +45,12 @@ public class Room {
         this.right = right;
     }
 
+    // text
+    public String getStoryText() { return storyText; }
+
+    public void setStoryText(String storyText) { this.storyText = storyText; }
+
+    // win or lose
     public boolean isWin() {
         return win;
     }

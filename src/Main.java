@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,22 +9,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
-
-    Stage primaryStage;
-    TextField nameText;
-    Stage mainStage;
-
-
+    
+    private TextField nameText;
+    private Stage mainStage;
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
-        startsceen();
-
+        startscreen();
     }
 
     public Room setup() {
@@ -63,7 +59,41 @@ public class Main extends Application {
         structure.put(29, new int[] {-1, -1, -1});
         structure.put(30, new int[] {-1, -1, -1});
 
-        // Variant 1
+        // text map
+        Map<Integer, String> textmap = new HashMap<>();
+        textmap.put(0, "ahjeebus");
+        textmap.put(1, "ohjeebus");
+        textmap.put(2, "nonii");
+        textmap.put(3, "nondaviisi");
+        textmap.put(4, "karabkah");
+        textmap.put(5, "niijanaajanoo");
+        textmap.put(6, "naajaniijanoo");
+        textmap.put(7, "noojanaajanii");
+        textmap.put(8, "");
+        textmap.put(9, "");
+        textmap.put(10, "");
+        textmap.put(11, "");
+        textmap.put(12, "");
+        textmap.put(13, "");
+        textmap.put(14, "");
+        textmap.put(15, "");
+        textmap.put(16, "");
+        textmap.put(17, "");
+        textmap.put(18, "");
+        textmap.put(19, "");
+        textmap.put(20, "");
+        textmap.put(21, "");
+        textmap.put(22, "");
+        textmap.put(23, "");
+        textmap.put(24, "");
+        textmap.put(25, "");
+        textmap.put(26, "");
+        textmap.put(27, "");
+        textmap.put(28, "");
+        textmap.put(29, "");
+        textmap.put(30, "");
+
+        // pictures
         String[] pildid = new String[]{"0.JPG", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",  "6.JPG",
                 "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG", "14.JPG",
                 "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
@@ -88,6 +118,10 @@ public class Main extends Application {
             int parem = suunad[2];
 
             Room vaadeldavRoom = rooms[roomNr];
+
+            String text = textmap.get(roomNr);
+            vaadeldavRoom.setStoryText(text);
+
             // left pathway
             if (vasak == -1) {
                 vaadeldavRoom.setLeft(null);
@@ -117,14 +151,14 @@ public class Main extends Application {
 
     }
 
-    public void startsceen() {
+    public void startscreen() {
         Pane startPane = new Pane();
         Scene startScene = new Scene(startPane, 700, 600);
         mainStage = new Stage();
 
         //Textfields, labels and buttons
         Label startLabel = new Label("Enter your name!");
-        TextField nameText = new TextField();
+        nameText = new TextField();
         Button startButton = new Button("Enter!");
 
         Image bgimage = new Image("40.JPG");
@@ -132,8 +166,11 @@ public class Main extends Application {
 
         //Adding stuff to startPane
         startPane.getChildren().addAll(imageView, startLabel, nameText, startButton);
-        startLabel.setTranslateX(20);
+        startLabel.setScaleX(3);
+        startLabel.setScaleX(3);
+        startLabel.setTranslateX(80);
         startLabel.setTranslateY(20);
+
         nameText.setTranslateX(20);
         nameText.setTranslateY(60);
         startButton.setTranslateX(20);
@@ -156,8 +193,11 @@ public class Main extends Application {
         //Labels and Buttons
         Label instructions = new Label("Hello, " + name + "\nYour" +
                 " sister Abby is missing. \nYou have to find her!");
-        instructions.setTranslateX(20);
+        instructions.setScaleX(2);
+        instructions.setScaleX(2);
+        instructions.setTranslateX(80);
         instructions.setTranslateY(20);
+
         Button a1 = new Button("Next!");
         a1.setTranslateX(20);
         a1.setTranslateY(100);
@@ -225,13 +265,18 @@ public class Main extends Application {
             lastScene(currentRoom);
         }
 
+        // story text
+        Label storyTextLabel = new Label(currentRoom.getStoryText());
+        storyTextLabel.setTranslateX(100);
+        storyTextLabel.setTranslateY(100);
+
         // background image
         Image bgimage = currentRoom.getBackgroundImage();
 
         ImageView imageView = new ImageView(bgimage);
 
         // adding buttons and background to the pane
-        playGamePane.getChildren().addAll(imageView, leftButton, straightButton, rightButton);
+        playGamePane.getChildren().addAll(imageView, storyTextLabel, leftButton, straightButton, rightButton);
         mainStage.setScene(playGameScene);
 
         if (vasak == null) {
@@ -250,43 +295,43 @@ public class Main extends Application {
         Pane lastScenePane = new Pane();
         Scene lastSceneScene = new Scene(lastScenePane, 700, 600);
 
-        Image bgimage = new Image("40.JPG");
+        Image bgimage = currentRoom.getBackgroundImage();
         ImageView imageView = new ImageView(bgimage);
 
         Button playAgainButton = new Button ("Play again!");
         playAgainButton.setTranslateX(20);
         playAgainButton.setTranslateY(500);
         playAgainButton.setOnAction((eventPlayAgain) -> {
-            startsceen();
+            System.out.println("Play again");
+            instructionscreen(nameText);
         });
 
         Button exitButton = new Button ("Exit game!");
         exitButton.setTranslateX(600);
         exitButton.setTranslateY(500);
-        playAgainButton.setOnAction((eventexit) -> {
-            System.exit(0);
+        exitButton.setOnAction((eventexit) -> {
+            System.out.println("Exit game!");
+            Platform.exit();
         });
 
         if (currentRoom.isWin()) {
             Label winLabel = new Label ("You found your sister! Good job!");
-            winLabel.setScaleX(2);
-            winLabel.setScaleX(2);
-            winLabel.setTranslateX(30);
-            winLabel.setTranslateX(50);
+            winLabel.setScaleX(3);
+            winLabel.setScaleY(3);
+            winLabel.setTranslateX(150);
+            winLabel.setTranslateY(100);
 
             lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, winLabel);
         } else {
             Label loseLabel = new Label ("Oh, no! You deadd!!");
-            loseLabel.setScaleX(2);
-            loseLabel.setScaleX(2);
-            loseLabel.setTranslateX(30);
-            loseLabel.setTranslateX(50);
+            loseLabel.setScaleX(3);
+            loseLabel.setScaleY(3);
+            loseLabel.setTranslateX(150);
+            loseLabel.setTranslateY(100);
 
             lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, loseLabel);
-
-            mainStage.setScene(lastSceneScene);
         }
-
+        mainStage.setScene(lastSceneScene);
     }
 
 }
