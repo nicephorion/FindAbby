@@ -26,7 +26,7 @@ public class Main extends Application {
 
     public Room setup() {
 
-        // Structure Map
+        // structure Map
         Map<Integer, int[]> structure = new HashMap<>();
         structure.put(0, new int[] {1, 2, 3});
         structure.put(1, new int[] {4, 5, 6});
@@ -57,49 +57,48 @@ public class Main extends Application {
         structure.put(26, new int[] {30, 30, 29});
         structure.put(27, new int[] {30, 29, 30});
         structure.put(28, new int[] {30, 29, 30});
-        // 29- win, 30 - lose
+        // 29 - win, 30 - lose
         structure.put(29, new int[] {-1, -1, -1});
         structure.put(30, new int[] {-1, -1, -1});
 
         // text map
         Map<Integer, String> textmap = new HashMap<>();
-        textmap.put(0, "ahjeebus");
-        textmap.put(1, "ohjeebus");
-        textmap.put(2, "nonii");
-        textmap.put(3, "nondaviisi");
-        textmap.put(4, "karabkah");
-        textmap.put(5, "niijanaajanoo");
-        textmap.put(6, "naajaniijanoo");
-        textmap.put(7, "noojanaajanii");
-        textmap.put(8, "");
-        textmap.put(9, "");
-        textmap.put(10, "");
-        textmap.put(11, "");
-        textmap.put(12, "");
-        textmap.put(13, "");
-        textmap.put(14, "");
-        textmap.put(15, "");
-        textmap.put(16, "");
-        textmap.put(17, "");
-        textmap.put(18, "");
-        textmap.put(19, "");
-        textmap.put(20, "");
+        textmap.put(0, "Where could have she gone?");
+        textmap.put(1, "It's cold outside, hurry!");
+        textmap.put(2, "She must be so scared...");
+        textmap.put(3, "Where did you saw her last?");
+        textmap.put(4, "Was she wearing a red scarf...?");
+        textmap.put(5, "Keep on looking!");
+        textmap.put(6, "Is it her hat on that branch?");
+        textmap.put(7, "You looked away for just a second.");
+        textmap.put(8, "Did you see that?!?");
+        textmap.put(9, "Your parents will be so angry...");
+        textmap.put(10, "Go on, go on!");
+        textmap.put(11, "It's freezing!");
+        textmap.put(12, "Don't give up!");
+        textmap.put(13, "Why didn't you keep holding her hand?");
+        textmap.put(14, "There's a strange smell...");
+        textmap.put(15, "Iit might rain tonight.");
+        textmap.put(16, "She is still so young!");
+        textmap.put(17, "She must be hungry!");
+        textmap.put(18, "Come-on! You can do it!");
+        textmap.put(19, "Keep on moving!");
+        textmap.put(20, "Did you hear that?!?");
         textmap.put(21, "");
-        textmap.put(22, "");
+        textmap.put(22, "She cannot be far anymore!");
         textmap.put(23, "");
-        textmap.put(24, "");
+        textmap.put(24, "The wind is rising!");
         textmap.put(25, "");
-        textmap.put(26, "");
-        textmap.put(27, "");
-        textmap.put(28, "");
-        textmap.put(29, "");
-        textmap.put(30, "");
+        textmap.put(26, "Why didn't you keep your eye on her?!?");
+        textmap.put(27, "There are dark clouds gathering!");
+        textmap.put(28, "The sun is already setting!");
 
         // pictures
-        String[] pildid = new String[]{"0.JPG", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",  "6.JPG",
-                "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG", "14.JPG",
-                "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG", "21.JPG", "22.JPG", "23.JPG",
-                "24.JPG", "25.JPG", "26.JPG", "27.JPG", "28.JPG", "29.JPG", "30.JPG"};
+        String[] pildid = new String[]{"0.JPG", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",
+                "6.JPG", "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG",
+                "14.JPG", "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG",
+                "21.JPG", "22.JPG", "23.JPG", "24.JPG", "25.JPG", "26.JPG", "27.JPG",
+                "28.JPG", "29.JPG", "30.JPG"};
 
         Room[] rooms = new Room[pildid.length];
 
@@ -110,11 +109,12 @@ public class Main extends Application {
             rooms[i] = room;
         }
 
-        //For tsükli loomisel küsisin targemalt abi.
+        // asked help for the next cycle
         for (Map.Entry<Integer, int[]> paar : structure.entrySet()) {
-            Integer roomNr = paar.getKey();
-            int[] suunad = paar.getValue();
 
+            Integer roomNr = paar.getKey();
+
+            int[] suunad = paar.getValue();
             int vasak = suunad[0];
             int otse = suunad[1];
             int parem = suunad[2];
@@ -146,11 +146,9 @@ public class Main extends Application {
                 vaadeldavRoom.setRight(rooms[parem]);
             }
         }
-
         rooms[29].setWin(true);
         rooms[30].setLose(true);
         return rooms[0];
-
     }
 
     public void startscreen() {
@@ -158,7 +156,7 @@ public class Main extends Application {
         Scene startScene = new Scene(startPane, 700, 600);
         mainStage = new Stage();
 
-        //Textfields, labels and buttons
+        // textfields, labels and buttons
         Label startLabel = new Label("Enter your name!");
         nameText = new TextField();
         Button startButton = new Button("Enter!");
@@ -166,18 +164,18 @@ public class Main extends Application {
         Image bgimage = new Image("40.JPG");
         ImageView imageView = new ImageView(bgimage);
 
-        //Adding stuff to startPane
+        // adding stuff to startPane
         startPane.getChildren().addAll(imageView, startLabel, nameText, startButton);
         startLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         startLabel.setTranslateX(20);
-        startLabel.setTranslateY(20);
+        startLabel.setTranslateY(40);
 
         nameText.setTranslateX(20);
-        nameText.setTranslateY(60);
+        nameText.setTranslateY(80);
         startButton.setTranslateX(20);
-        startButton.setTranslateY(100);
+        startButton.setTranslateY(120);
 
-        //startButton event
+        // startButton event
         startButton.setOnAction((eventInstructions) -> {
             instructionscreen(nameText);
         });
@@ -191,26 +189,24 @@ public class Main extends Application {
         Scene instructionScene = new Scene(instructionPane, 700, 600);
         String name = nameText.getText();
 
-        //Labels and Buttons
+        // labels and Buttons
         Label instructions = new Label("Hello, " + name + "\nYour" +
                 " sister Abby is missing. \nYou have to find her!");
-        instructions.setScaleX(2);
-        instructions.setScaleX(2);
-        instructions.setTranslateX(80);
-        instructions.setTranslateY(20);
+        instructions.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        instructions.setTranslateX(20);
+        instructions.setTranslateY(40);
 
         Button a1 = new Button("Next!");
         a1.setTranslateX(20);
-        a1.setTranslateY(100);
+        a1.setTranslateY(120);
 
         Image bgimage = new Image("40.JPG");
         ImageView imageView = new ImageView(bgimage);
 
-        // Kutsu välja setup meetod: Room first = setup();
+        // call out the setup method
         Room first = setup();
 
-        // Nupule vajutades alustatakse playGame(first)
-        //startButton event
+        // (a1) button event to start the game
         a1.setOnAction((eventStartGame) -> {
             playGame(first);
         });
@@ -240,7 +236,6 @@ public class Main extends Application {
         leftButton.setTranslateY(500);
         // event
         leftButton.setOnAction((eventInstructions) -> {
-            //if vasak == -1 { lastScene }
             playGame(vasak);
         });
 
@@ -262,35 +257,21 @@ public class Main extends Application {
             playGame(parem);
         });
 
-        if (vasak == null && parem == null && otse == null) {
-            lastScene(currentRoom);
-        }
-
         // story text
         Label storyTextLabel = new Label(currentRoom.getStoryText());
-        storyTextLabel.setTranslateX(100);
-        storyTextLabel.setTranslateY(100);
+        storyTextLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        storyTextLabel.setTranslateX(175);
+        storyTextLabel.setTranslateY(200);
 
         // background image
         Image bgimage = currentRoom.getBackgroundImage();
-
         ImageView imageView = new ImageView(bgimage);
 
         // adding buttons and background to the pane
         playGamePane.getChildren().addAll(imageView, storyTextLabel, leftButton, straightButton, rightButton);
         mainStage.setScene(playGameScene);
-
-        if (vasak == null) {
-            leftButton.setVisible(false);
-        }
-        if (otse == null) {
-            straightButton.setVisible(false);
-        }
-        if (parem == null) {
-            rightButton.setVisible(false);
-        }
-
     }
+
     public void lastScene(Room currentRoom) {
 
         Pane lastScenePane = new Pane();
@@ -299,36 +280,34 @@ public class Main extends Application {
         Image bgimage = currentRoom.getBackgroundImage();
         ImageView imageView = new ImageView(bgimage);
 
+        // playAgain button
         Button playAgainButton = new Button ("Play again!");
         playAgainButton.setTranslateX(20);
         playAgainButton.setTranslateY(500);
         playAgainButton.setOnAction((eventPlayAgain) -> {
-            System.out.println("Play again");
             instructionscreen(nameText);
         });
 
+        // exit button
         Button exitButton = new Button ("Exit game!");
         exitButton.setTranslateX(600);
         exitButton.setTranslateY(500);
         exitButton.setOnAction((eventexit) -> {
-            System.out.println("Exit game!");
             Platform.exit();
         });
 
         if (currentRoom.isWin()) {
             Label winLabel = new Label ("You found your sister! Good job!");
-            winLabel.setScaleX(3);
-            winLabel.setScaleY(3);
-            winLabel.setTranslateX(150);
-            winLabel.setTranslateY(100);
+            winLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+            winLabel.setTranslateX(100);
+            winLabel.setTranslateY(300);
 
             lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, winLabel);
         } else {
             Label loseLabel = new Label ("Oh, no! You deadd!!");
-            loseLabel.setScaleX(3);
-            loseLabel.setScaleY(3);
-            loseLabel.setTranslateX(150);
-            loseLabel.setTranslateY(100);
+            loseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+            loseLabel.setTranslateX(100);
+            loseLabel.setTranslateY(300);
 
             lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, loseLabel);
         }
