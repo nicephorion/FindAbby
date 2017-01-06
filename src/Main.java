@@ -92,58 +92,62 @@ public class Main extends Application {
         textmap.put(26, "Why didn't you keep your eye on her?!?");
         textmap.put(27, "There are dark clouds gathering!");
         textmap.put(28, "The sun is already setting!");
+        textmap.put(29, "You found your sister! Good job!");
+        textmap.put(30, "Oh, no! You deadd!!");
 
         // pictures
-        String[] pildid = new String[]{"0.JPG", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",
+        String[] pictures = new String[]{"0.JPG", "1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG",
                 "6.JPG", "7.JPG", "8.JPG", "9.JPG", "10.JPG", "11.JPG", "12.JPG", "13.JPG",
                 "14.JPG", "15.JPG", "16.JPG", "17.JPG", "18.JPG", "19.JPG", "20.JPG",
                 "21.JPG", "22.JPG", "23.JPG", "24.JPG", "25.JPG", "26.JPG", "27.JPG",
                 "28.JPG", "29.JPG", "30.JPG"};
 
-        Room[] rooms = new Room[pildid.length];
+        Room[] rooms = new Room[pictures.length];
 
-        for (int i = 0; i < pildid.length; i++) {
-            String stringSceneBackgroundimage = pildid[i];
+        // cycle to add images to rooms
+        for (int i = 0; i < pictures.length; i++) {
+            String stringSceneBackgroundimage = pictures[i];
             Image sceneBackgroundimage = new Image (stringSceneBackgroundimage);
             Room room = new Room(sceneBackgroundimage);
             rooms[i] = room;
         }
 
         // asked help for the next cycle
-        for (Map.Entry<Integer, int[]> paar : structure.entrySet()) {
+        // cycle to add pathways and text to rooms
+        for (Map.Entry<Integer, int[]> entry : structure.entrySet()) {
 
-            Integer roomNr = paar.getKey();
+            Integer roomNr = entry.getKey();
 
-            int[] suunad = paar.getValue();
-            int vasak = suunad[0];
-            int otse = suunad[1];
-            int parem = suunad[2];
+            int[] pathways = entry.getValue();
+            int left = pathways[0];
+            int straight = pathways[1];
+            int right = pathways[2];
 
-            Room vaadeldavRoom = rooms[roomNr];
+            Room thisRoom = rooms[roomNr];
 
             String text = textmap.get(roomNr);
-            vaadeldavRoom.setStoryText(text);
+            thisRoom.setStoryText(text);
 
             // left pathway
-            if (vasak == -1) {
-                vaadeldavRoom.setLeft(null);
+            if (left == -1) {
+                thisRoom.setLeft(null);
             }
             else {
-                vaadeldavRoom.setLeft(rooms[vasak]);
+                thisRoom.setLeft(rooms[left]);
             }
             // straight pathway
-            if (otse == -1) {
-                vaadeldavRoom.setStraight(null);
+            if (straight == -1) {
+                thisRoom.setStraight(null);
             }
             else {
-                vaadeldavRoom.setStraight(rooms[otse]);
+                thisRoom.setStraight(rooms[straight]);
             }
             // right pathway
-            if (parem == -1) {
-                vaadeldavRoom.setRight(null);
+            if (right == -1) {
+                thisRoom.setRight(null);
             }
             else {
-                vaadeldavRoom.setRight(rooms[parem]);
+                thisRoom.setRight(rooms[right]);
             }
         }
         rooms[29].setWin(true);
@@ -226,9 +230,9 @@ public class Main extends Application {
         Pane playGamePane = new Pane();
         Scene playGameScene = new Scene(playGamePane, 700, 600);
 
-        Room vasak = currentRoom.getLeft();
-        Room otse = currentRoom.getStraight();
-        Room parem = currentRoom.getRight();
+        Room left = currentRoom.getLeft();
+        Room straight = currentRoom.getStraight();
+        Room right = currentRoom.getRight();
 
         // left button
         Button leftButton = new Button("Go left!");
@@ -236,7 +240,7 @@ public class Main extends Application {
         leftButton.setTranslateY(500);
         // event
         leftButton.setOnAction((eventInstructions) -> {
-            playGame(vasak);
+            playGame(left);
         });
 
         // straight button
@@ -245,7 +249,7 @@ public class Main extends Application {
         straightButton.setTranslateY(500);
         // event
         straightButton.setOnAction((eventInstructions) -> {
-            playGame(otse);
+            playGame(straight);
         });
 
         // right button
@@ -254,7 +258,7 @@ public class Main extends Application {
         rightButton.setTranslateY(500);
         // event
         rightButton.setOnAction((eventInstructions) -> {
-            playGame(parem);
+            playGame(right);
         });
 
         // story text
@@ -277,8 +281,15 @@ public class Main extends Application {
         Pane lastScenePane = new Pane();
         Scene lastSceneScene = new Scene(lastScenePane, 700, 600);
 
+        // background image
         Image bgimage = currentRoom.getBackgroundImage();
         ImageView imageView = new ImageView(bgimage);
+
+        // story text
+        Label storyTextLabel = new Label(currentRoom.getStoryText());
+        storyTextLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        storyTextLabel.setTranslateX(100);
+        storyTextLabel.setTranslateY(300);
 
         // playAgain button
         Button playAgainButton = new Button ("Play again!");
@@ -292,26 +303,11 @@ public class Main extends Application {
         Button exitButton = new Button ("Exit game!");
         exitButton.setTranslateX(600);
         exitButton.setTranslateY(500);
-        exitButton.setOnAction((eventexit) -> {
+        exitButton.setOnAction((eventExit) -> {
             Platform.exit();
         });
 
-        if (currentRoom.isWin()) {
-            Label winLabel = new Label ("You found your sister! Good job!");
-            winLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
-            winLabel.setTranslateX(100);
-            winLabel.setTranslateY(300);
-
-            lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, winLabel);
-        } else {
-            Label loseLabel = new Label ("Oh, no! You deadd!!");
-            loseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
-            loseLabel.setTranslateX(100);
-            loseLabel.setTranslateY(300);
-
-            lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, loseLabel);
-        }
+        lastScenePane.getChildren().addAll (imageView, playAgainButton, exitButton, storyTextLabel);
         mainStage.setScene(lastSceneScene);
     }
-
 }
