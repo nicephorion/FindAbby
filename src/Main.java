@@ -83,12 +83,12 @@ public class Main extends Application {
         textmap.put(17, "She must be hungry!");
         textmap.put(18, "Come-on! You can do it!");
         textmap.put(19, "Keep on moving!");
-        textmap.put(20, "Did you hear that?!?");
-        textmap.put(21, "");
+        textmap.put(20, "Brrr, it's so cold!");
+        textmap.put(21, "Are you freezing already?");
         textmap.put(22, "She cannot be far anymore!");
-        textmap.put(23, "");
+        textmap.put(23, "What was the last thing you said to her?");
         textmap.put(24, "The wind is rising!");
-        textmap.put(25, "");
+        textmap.put(25, "She must be so scared...");
         textmap.put(26, "Why didn't you keep your eye on her?!?");
         textmap.put(27, "There are dark clouds gathering!");
         textmap.put(28, "The sun is already setting!");
@@ -260,7 +260,7 @@ public class Main extends Application {
         // story text
         Label storyTextLabel = new Label(currentRoom.getStoryText());
         storyTextLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
-        storyTextLabel.setTranslateX(175);
+        storyTextLabel.setTranslateX(100);
         storyTextLabel.setTranslateY(200);
 
         // background image
